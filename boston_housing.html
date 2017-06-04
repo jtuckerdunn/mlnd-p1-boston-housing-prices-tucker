@@ -13238,7 +13238,7 @@ BygiIiIiInrG/wBsbGVcwDzkUAAAAABJRU5ErkJggg==
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Answer: </strong> The max_depth for the second graph is 3. The score of the training curve seems to lower slightly as more training points are added. The testing curve seems to raise slightly as more training points are added. More training points would definetely benefit the model.</p>
+<p><strong>Answer: </strong> The max_depth for the second graph is 3. The score of the training curve seems to lower slightly as more training points are added. The testing curve seems to raise slightly as more training points are added. More training points would not benefit the model as it has converged to its optimal score and more data is not nessecary.</p>
 
 </div>
 </div>
@@ -13686,7 +13686,7 @@ pGeMMSZk/D+07+/N2kS1mwAAAABJRU5ErkJggg==
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Answer: </strong> When the model is trained with a maxium depth of one the model suffers from high variance and is underfitting. The visual cue for this is that both the validation and training score are low and simialarly innacurte.The model is too simple.</p>
+<p><strong>Answer: </strong> When the model is trained with a maxium depth of one the model suffers from high bias and is underfitting. The visual cue for this is that both the validation and training score are low and simialarly innacurte.The model is too simple.</p>
 <p>When the model is trained with a maximum depth of 10 the model suffers from high variance and overfitting. The visual cue for this is that the training score is accurate but the validation score is inaccurate. The model is overly complex.</p>
 
 </div>
@@ -13705,7 +13705,7 @@ pGeMMSZk/D+07+/N2kS1mwAAAABJRU5ErkJggg==
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Answer: </strong> The mximum depth that best generalizes to unseen data is probably because the validation score is maximised and the testing score is high.</p>
+<p><strong>Answer: </strong> The maximum depth that best generalizes to unseen data is probably 6 because the validation score is maximised and the testing score is high.</p>
 
 </div>
 </div>
@@ -13752,7 +13752,7 @@ pGeMMSZk/D+07+/N2kS1mwAAAABJRU5ErkJggg==
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Answer: </strong> The k-fold cross-validation technique involves separating the data into k-buckets and running the model k times with a different bucket selected as the testing data at each iteration. Then the results are averaged from each model. This allows all of the data to be used as training data and will lead to more accurate results although it sacrifices computing time. The advantage with using k-fold with grid search is that the parameters are optomized for all data and not just the data that was selected once as the training data.</p>
+<p><strong>Answer: </strong> The k-fold cross-validation technique involves separating the data into k-buckets and running the model k times with a different bucket selected as the testing data at each iteration. This allows K-1 buckets to be used in each training model. Then the results are averaged from each model. This allows all of the data to be used as training data and will lead to more accurate results although it sacrifices computing time. The advantage with using k-fold with grid search is that the parameters are optomized for all data and not just the data that was selected once as the training data.</p>
 
 </div>
 </div>
@@ -13788,7 +13788,7 @@ For the <code>fit_model</code> function in the code cell below, you will need to
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[30]:</div>
+<div class="prompt input_prompt">In&nbsp;[39]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># TODO: Import &#39;make_scorer&#39;, &#39;DecisionTreeRegressor&#39;, and &#39;GridSearchCV&#39;</span>
@@ -13806,10 +13806,10 @@ For the <code>fit_model</code> function in the code cell below, you will need to
     <span class="n">cv_sets</span> <span class="o">=</span> <span class="n">ShuffleSplit</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">n_iter</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">test_size</span> <span class="o">=</span> <span class="mf">0.20</span><span class="p">,</span> <span class="n">random_state</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span>
 
     <span class="c1"># TODO: Create a decision tree regressor object</span>
-    <span class="n">regressor</span> <span class="o">=</span> <span class="n">DecisionTreeRegressor</span><span class="p">(</span><span class="n">random_state</span> <span class="o">=</span> <span class="bp">None</span><span class="p">)</span>
+    <span class="n">regressor</span> <span class="o">=</span> <span class="n">DecisionTreeRegressor</span><span class="p">(</span><span class="n">random_state</span> <span class="o">=</span> <span class="mi">25</span><span class="p">)</span>
 
     <span class="c1"># TODO: Create a dictionary for the parameter &#39;max_depth&#39; with a range from 1 to 10</span>
-    <span class="n">params</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;max_depth&#39;</span><span class="p">:</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">)}</span>
+    <span class="n">params</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;max_depth&#39;</span><span class="p">:</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">11</span><span class="p">)}</span>
 
     <span class="c1"># TODO: Transform &#39;performance_metric&#39; into a scoring function using &#39;make_scorer&#39; </span>
     <span class="n">scoring_fnc</span> <span class="o">=</span> <span class="n">make_scorer</span><span class="p">(</span><span class="n">performance_metric</span><span class="p">)</span>
@@ -13850,7 +13850,7 @@ For the <code>fit_model</code> function in the code cell below, you will need to
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[31]:</div>
+<div class="prompt input_prompt">In&nbsp;[40]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># Fit the training data to the model using grid search</span>
@@ -13874,7 +13874,7 @@ For the <code>fit_model</code> function in the code cell below, you will need to
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Parameter &#39;max_depth&#39; is 6 for the optimal model.
+<pre>Parameter &#39;max_depth&#39; is 5 for the optimal model.
 </pre>
 </div>
 </div>
@@ -13935,7 +13935,7 @@ For the <code>fit_model</code> function in the code cell below, you will need to
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[32]:</div>
+<div class="prompt input_prompt">In&nbsp;[41]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># Produce a matrix for client data</span>
@@ -13962,9 +13962,9 @@ For the <code>fit_model</code> function in the code cell below, you will need to
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Predicted selling price for Client 1&#39;s home: $422,100.00
-Predicted selling price for Client 2&#39;s home: $277,200.00
-Predicted selling price for Client 3&#39;s home: $922,950.00
+<pre>Predicted selling price for Client 1&#39;s home: $431,287.50
+Predicted selling price for Client 2&#39;s home: $175,700.00
+Predicted selling price for Client 3&#39;s home: $913,500.00
 </pre>
 </div>
 </div>
@@ -13982,6 +13982,9 @@ Predicted selling price for Client 3&#39;s home: $922,950.00
 <p>Predicted selling price for Client 2's home: 277,200.00</p>
 <p>Predicted selling price for Client 3's home: 922,950.00</p>
 <p>These prices do seem reasonable given the values for the respective features.</p>
+<p>Client 2 has the least amount of rooms, the highest neighborhood poverty ratio, and the highest student teacher ratio so it makes sense that they have the lowest home value.</p>
+<p>Client 3 has the most rooms, lowest neighborhood, poverty ratio, and lowest student teacher ratio so they should have the highest home value.</p>
+<p>Client 1 is in between client 2 and 3 for all of these values so it makes sense that the home price is in the middle.</p>
 
 </div>
 </div>
@@ -13997,7 +14000,7 @@ Predicted selling price for Client 3&#39;s home: $922,950.00
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[33]:</div>
+<div class="prompt input_prompt">In&nbsp;[43]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="n">vs</span><span class="o">.</span><span class="n">PredictTrials</span><span class="p">(</span><span class="n">features</span><span class="p">,</span> <span class="n">prices</span><span class="p">,</span> <span class="n">fit_model</span><span class="p">,</span> <span class="n">client_data</span><span class="p">)</span>
@@ -14018,17 +14021,17 @@ Predicted selling price for Client 3&#39;s home: $922,950.00
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Trial 1: $391,183.33
-Trial 2: $419,700.00
+Trial 2: $424,935.00
 Trial 3: $415,800.00
 Trial 4: $420,622.22
-Trial 5: $413,334.78
+Trial 5: $418,377.27
 Trial 6: $411,931.58
 Trial 7: $399,663.16
 Trial 8: $407,232.00
 Trial 9: $351,577.61
 Trial 10: $413,700.00
 
-Range in prices: $69,044.61
+Range in prices: $73,357.39
 </pre>
 </div>
 </div>
